@@ -22,6 +22,9 @@
         
         //Actionne la méthode add
         $gerer->addRep($repondant);
+
+        
+  
         ?>
         
         <h1>L'utilisateur suivant a été créé :</h1>
@@ -29,12 +32,18 @@
             Nom :    <?php echo $_POST['nom']; ?> <br/>
             Prenom : <?php echo $_POST['prenom']; ?> <br/>
             Mail :   <?php echo $_POST['mail']; ?><br/>
-            Groupe : <?php echo implode(" / ", $_POST['choixGrp']);?><br/> 
+            Groupe : <?php echo implode(" / ", $_POST['choixGrp']);?><br/>
                         <!-- Affiche la liste des groupes séléctionnés-->
+                        
+           
+                        
         </p>
             <?php 
             $gererGrp = new GroupeGerer($db);
-            $gererGrp->AjoutGroupeRepondant();
+            $lastID= $gerer->dernierID();
+            
+            $gererGrp->AjoutGroupeRepondant($_POST['choixGrp'], $lastID);
+            $gererGrp->Compteur();
             ?>
         
             <a href="RepondantCreation.php">Créer un autre répondant</a>

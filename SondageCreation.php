@@ -1,3 +1,7 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,8 +9,8 @@
         <title></title>
     </head>
     <body>
-        <h1>Creation d'un nouveau Répondant</h1>
-       <form action="RepondantCree.php" method="post">
+         <h1>Creation d'un nouveau Répondant</h1>
+         <form action="RepondantCree.php" method="post">
 
          <p> Nom : <input type="text" name="nom" /><br/>
           Prenom :<input type="text" name="prenom" /><br/>
@@ -16,13 +20,8 @@
           require 'Class/GroupeGerer.php'; 
           $db = new PDO('mysql:host=localhost;dbname=sondage', 'root', '');
           $gererGrp = new GroupeGerer($db);
-          $gererGrp->CheckBoxGrp();
+          $gererGrp->ListeDeroulanteGrp();
 
           ?><br/>
-
-          
-           <input type="submit" value="Valider" /><br/>
-           <a href="index.php">Retour accueil</a>
-
     </body>
 </html>

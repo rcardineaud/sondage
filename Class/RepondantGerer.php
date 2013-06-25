@@ -86,6 +86,11 @@ class RepondantGerer {
         }
     }
     
+    public function dernierID(){
+        $Last_ID= $this->_db->lastInsertId();
+        return $Last_ID;
+    }
+    
      
      public function setDb(PDO $db)
   {
