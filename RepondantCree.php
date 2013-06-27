@@ -13,6 +13,13 @@
         require 'Class/RepondantGerer.php';
         require 'Class/GroupeGerer.php';
         require 'BaseDeDonnees.php';
+
+        
+       if(empty($_POST['Nom']) && empty($_POST['Prenom']) && empty($_POST['mail'])){ 
+           
+         echo "Vous devez remplir tous les champs";
+       
+       } else {
         
         
         //on créé un nouveau répondant avec les données entrées par l'utilisateur
@@ -30,6 +37,8 @@
             
             $gererGrp->AjoutGroupeRepondant($_POST['choixGrp'], $lastID);
             $gererGrp->Compteur();
+            
+       }
             ?>
 
         </p>

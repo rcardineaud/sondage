@@ -34,12 +34,6 @@ class RepondantGerer {
         $radd->bindvalue(':Prenom_repondant', $repondant->getPrenom(),PDO::PARAM_STR);
         $radd->bindvalue(':Mail_repondant', $repondant->getMail(),PDO::PARAM_STR);
        
-       if(empty($_POST['Nom']) && empty($_POST['Prenom']) && empty($_POST['mail'])){ 
-           
-         echo "Vous devez remplir tous les champs";
-       
-       } else {
-        
         $radd->execute();
         
            echo "Le répondant suivant a été créé :";
@@ -53,8 +47,6 @@ class RepondantGerer {
            </p>     
            <?php
         }
-    }
-    
     
     //supprime un répondant
     public function deleteRep(Repondant $repondant){ 
@@ -82,35 +74,32 @@ class RepondantGerer {
     
     //affiche tous les répondants
     public function GetAllRep(){ 
-        $resultat=$this->_db->query('SELECT Nom_repondant, 
-                                     Prenom_repondant, 
-                                     mail_repondant, 
-                                     libelle_groupe
-                                     FROM Repondant rep
-                                     INNER JOIN appartient grp 
-                                        ON rep.ID_repondant = grp.ID_repondant
-                                     INNER JOIN Groupe app 
-                                        ON grp.ID_groupe = app.ID_groupe');
+        $resultat=$this->_db->query('SELECT *
+                                     FROM Repondant
+                                     ');
         // On enregistre le resultat
         $donnees = $resultat->fetchAll();
  
+        ?> <table border="1" width="350"><?php
         //On parcourt le resultat ligne par ligne
         foreach($donnees as $row)
         {
         //On affiche le nom, le prenom, le mail et le(s) groupe(s) du client
         ?>
-          <table>
-              
            <tr>
            <td> <?php echo $row['Nom_repondant']; ?></td>
            <td> <?php echo $row['Prenom_repondant']; ?></td>
            <td> <?php echo $row['mail_repondant']; ?> </td>
-           <td> <?php echo $row['libelle_groupe']; ?> </td>
            </tr>
            
-          </table>
-         <?php
-        }
+          
+         
+         
+       <?php } ?> 
+          </table> 
+           
+           
+           <?php
     }
     
     public function dernierID(){
