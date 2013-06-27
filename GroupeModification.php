@@ -7,6 +7,8 @@
     <body>
         
         <h2>Liste des Groupes</h2>
+        <form action="GroupeSupprime.php" method="post"><br/>
+        
         
         <?php
          require 'Class/Groupe.php';    //appelle des classes
@@ -16,24 +18,16 @@
         $db = new PDO($dns,$identifiant,$mdp);
         $gererGrp = new GroupeGerer($db);
                
-        $gererGrp->GetAllGrp();
+        $gererGrp->CheckBoxGrp();
 
         ?>
-        
-         <h2>Quel groupe souhaitez-vous supprimer ?</h2>
+
          
-         <form action="GroupeModification.php" method="post">
-         <p> Nom du groupe : <input type="text" name="Libelle_groupe_suppression" /><br/>
+         <br/>
          <input type="submit" value="supprimer"><br/>
          <a href="index.php">Retour accueil</a>
          <a href="GroupeModification.php">Rafraichir page</a>
         
-
-        <?php 
-        $groupe = new Groupe($_POST['Libelle_groupe_suppression']);
-        
-        $gererGrp->deleteGrp($groupe);
-        ?>
         
     </body>
 </html>

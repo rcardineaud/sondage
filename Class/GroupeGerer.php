@@ -67,18 +67,31 @@ class GroupeGerer {
     }
     
         //permet de supprimer un groupe
-        public function deleteGrp(Groupe $groupe){ 
-        $rdel = $this->_db->prepare('DELETE FROM Groupe 
-                                     WHERE libelle_groupe = :libelle_groupe');
+        public function deleteGrp($ID_groupe){ 
+            
+            foreach($ID_groupe as $element){
+                $num_ID=(int)$element;
+            
+                //requete de supression du groupe dans la table appartient
+                $rdelAppartient = $this->_db->prepare('DELETE FROM appartient 
+                                             WHERE ID_groupe=:ID_groupe');
+                
+                //requete de suppression du groupe dans la table Groupe
+                $rdelGroupe = $this->_db->prepare('DELETE FROM Groupe 
+                                             WHERE ID_groupe=:ID_groupe');
         
-        $rdel->bindvalue(':libelle_groupe', $groupe->getLibelleGroupe(),PDO::PARAM_STR);
-        $rdel->execute();
+                $rdelAppartient->bindvalue(':ID_groupe', $num_ID, PDO::PARAM_STR);
+                $rdelGroupe->bindvalue(':ID_groupe', $num_ID, PDO::PARAM_STR);
+                $rdelAppartient->execute();
+                $rdelGroupe->execute();
+            }
         
     }
         
         public function GetAllGrp(){
-        $resultat=$this->_db->query('Select libelle_groupe 
-                                    FROM Groupe;');
+        $resultat=$this->_db->query('Select ID_groupe, libelle_groupe 
+                                    FROM Groupe
+                                    WHERE libelle_groupe !="defaut"');
         // On enregistre le resultat dans une variable
         $donnees = $resultat->fetchAll();
         
@@ -112,21 +125,20 @@ class GroupeGerer {
         //on enregistre dans la variable tous les groupes, sauf celui par défaut    
         $resultat=$this->_db->query('Select ID_groupe,libelle_groupe 
                                      FROM Groupe
-                                     WHERE libelle_groupe != "defaut";');
+                                     WHERE libelle_groupe != "defaut"');
         // On affiche le resultat
         $donnees = $resultat->fetchAll();
         
 
         //On parcourt tous les enregistrements
-            foreach($donnees as $row)
-            {
+            foreach($donnees as $row){
         //On affiche les libelles des groupes dans un checkbox
              ?> 
              <input type="checkbox" name="choixGrp[]" onclick="compteur();" 
                     value ="<?php echo $row['ID_groupe'] ?>"> 
              <?php echo $row['libelle_groupe'];
 
-        }
+            }
         }
         
         //Compte le nombre de groupes séléctionnés lors de la création d'un répondant
