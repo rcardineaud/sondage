@@ -11,8 +11,9 @@
         <?php
          require 'Class/Groupe.php';    //appelle des classes
          require 'Class/GroupeGerer.php';
+         require 'BaseDeDonnees.php';
          
-        $db = new PDO('mysql:host=localhost;dbname=sondage', 'root', '');
+        $db = new PDO($dns,$identifiant,$mdp);
         $gererGrp = new GroupeGerer($db);
                
         $gererGrp->GetAllGrp();

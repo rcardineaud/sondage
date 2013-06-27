@@ -11,14 +11,19 @@
  *
  * @author rcardineaud
  */
+
+
+
 class RepondantGerer {
     private $_db;
     
+    //constructeur
     public function __construct($db) {
         $this->setDb($db);
     }
     
-    public function addRep(Repondant $repondant){ //ajoute un répondant
+    //ajoute un répondant
+    public function addRep(Repondant $repondant){
         $radd = $this->_db->prepare('INSERT INTO Repondant 
                                      SET  
                                      Nom_repondant = :Nom_repondant, 
@@ -29,10 +34,30 @@ class RepondantGerer {
         $radd->bindvalue(':Prenom_repondant', $repondant->getPrenom(),PDO::PARAM_STR);
         $radd->bindvalue(':Mail_repondant', $repondant->getMail(),PDO::PARAM_STR);
        
+       if(empty($_POST['Nom']) && empty($_POST['Prenom']) && empty($_POST['mail'])){ 
+           
+         echo "Vous devez remplir tous les champs";
+       
+       } else {
+        
         $radd->execute();
+        
+           echo "Le répondant suivant a été créé :";
+        
+           ?>
+           <p>
+           Nom : <?php echo $_POST['nom'];?><br/> 
+           Prenom : <?php echo $_POST['prenom'];?><br/>
+           Mail : <?php echo $_POST['mail'];?><br/>
+           Groupe : <?php echo implode(" / ", $_POST['choixGrp']);?>
+           </p>     
+           <?php
+        }
     }
     
-    public function deleteRep(Repondant $repondant){ //supprime un répondant
+    
+    //supprime un répondant
+    public function deleteRep(Repondant $repondant){ 
         $rdel = $this->_db->prepare('DELETE FROM Repondant WHERE Nom_repondant = :Nom_repondant');
         
         $rdel->bindvalue(':Nom_repondant', $repondant->getNom(),PDO::PARAM_STR);
@@ -40,7 +65,8 @@ class RepondantGerer {
         
     }
     
-   public function getRep($ID_repondant){ //affiche un répondant
+   //affiche un répondant 
+   public function getRep($ID_repondant){ 
          $ID_repondant = (int) $ID_repondant;
  
          $rget = $this->_db->query('SELECT ID_repondant, 
@@ -49,12 +75,13 @@ class RepondantGerer {
                                    Mail_repondant 
                                    FROM Repondant 
                                    WHERE id = '.$ID_repondant);
-        $donnees = $rget->fetch(PDO::FETCH_ASSOC);
+         $donnees = $rget->fetch(PDO::FETCH_ASSOC);
  
     return new Repondant($donnees);
     }
     
-    public function GetAllRep(){ //affiche tous les répondants
+    //affiche tous les répondants
+    public function GetAllRep(){ 
         $resultat=$this->_db->query('SELECT Nom_repondant, 
                                      Prenom_repondant, 
                                      mail_repondant, 
@@ -67,10 +94,10 @@ class RepondantGerer {
         // On enregistre le resultat
         $donnees = $resultat->fetchAll();
  
-        //On parcourt tous les enregistrements
+        //On parcourt le resultat ligne par ligne
         foreach($donnees as $row)
         {
-        //On affiche l'id, le nom, le mail et le(s) groupe(s) du client
+        //On affiche le nom, le prenom, le mail et le(s) groupe(s) du client
         ?>
           <table>
               

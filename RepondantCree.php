@@ -8,7 +8,8 @@
 
         
         <?php
-        require 'Class/Repondant.php';    //appelle des classes
+        //On appelle les classes
+        require 'Class/Repondant.php';    
         require 'Class/RepondantGerer.php';
         require 'Class/GroupeGerer.php';
         
@@ -20,23 +21,10 @@
         $db = new PDO('mysql:host=localhost;dbname=sondage', 'root', '');
         $gerer = new RepondantGerer($db);
         
-        //Actionne la méthode add
-        $gerer->addRep($repondant);
-
-        
-  
+        //On actionne la méthode add
+        $gerer->addRep($repondant);  
         ?>
         
-        <h1>L'utilisateur suivant a été créé :</h1>
-        <p>
-            Nom :    <?php echo $_POST['nom']; ?> <br/>
-            Prenom : <?php echo $_POST['prenom']; ?> <br/>
-            Mail :   <?php echo $_POST['mail']; ?><br/>
-            Groupe : <?php echo implode(" / ", $_POST['choixGrp']);?><br/>
-                        <!-- Affiche la liste des groupes séléctionnés-->
-                        
-           
-                        
         </p>
             <?php 
             $gererGrp = new GroupeGerer($db);

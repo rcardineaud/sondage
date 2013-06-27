@@ -8,17 +8,20 @@
         <?php
         require 'Class/Groupe.php';    //appelle des classes
         require 'Class/GroupeGerer.php';
+        require 'BaseDeDonnees.php';
         
-        $db = new PDO('mysql:host=localhost;dbname=sondage', 'root', '');
+        $db = new PDO($dns, $identifiant, $mdp);
         $gererGrp = new GroupeGerer($db);
         $groupe= new Groupe($_POST['libelle_groupe']);
         
+          
         //Lance la méthode add
-        $gererGrp->addGrp($groupe);
+         $gererGrp->addGrp($groupe);
+
         ?>
-        <h2>Le groupe <?php echo $_POST['libelle_groupe']?> a été créé !</h2>
-        
-        <a href='index.php'>Retour accueil</>
+        <br/>
+        <a href='index.php'>Retour accueil</a>
+        <a href='GroupeCreation.php'>Créer un autre groupe</a>
         
     </body>
 </html>

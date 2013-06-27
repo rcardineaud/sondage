@@ -9,16 +9,17 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-         <h1>Creation d'un nouveau Répondant</h1>
+         <h1>Creation d'un nouveau Sondage</h1>
          <form action="RepondantCree.php" method="post">
 
-         <p> Nom : <input type="text" name="nom" /><br/>
-          Prenom :<input type="text" name="prenom" /><br/>
-          Adresse mail : <input type="text" name="mail" /><br/>
-          Groupe : 
+         <p> Titre : <input type="text" name="nom" /><br/>
+          ... :<input type="text" name="prenom" /><br/>
+          ... : <input type="text" name="mail" /><br/>
+          ... : 
           <?php 
           require 'Class/GroupeGerer.php'; 
-          $db = new PDO('mysql:host=localhost;dbname=sondage', 'root', '');
+          require 'BaseDeDonnees.php';
+          $db = new PDO($dns, $identifiant, $mdp);
           $gererGrp = new GroupeGerer($db);
           $gererGrp->ListeDeroulanteGrp();
 

@@ -13,8 +13,9 @@ and open the template in the editor.
         <?php
          require 'Class/Repondant.php';    //appelle des classes
          require 'Class/RepondantGerer.php';
+         require 'BaseDeDonnees.php';
          
-        $db = new PDO('mysql:host=localhost;dbname=sondage', 'root', '');
+        $db = new PDO($dns, $identifiant, $mdp);
         $gerer = new RepondantGerer($db);
         ?>
         
