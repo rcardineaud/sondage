@@ -14,8 +14,7 @@
         require 'Class/GroupeGerer.php';
         require 'BaseDeDonnees.php';
 
-        
-       if(empty($_POST['Nom']) && empty($_POST['Prenom']) && empty($_POST['mail'])){ 
+       if(empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mail'])){ 
            
          echo "Vous devez remplir tous les champs";
        
@@ -32,11 +31,11 @@
         //On actionne la méthode add
         $gerer->addRep($repondant);  
 
-            $gererGrp = new GroupeGerer($db);
-            $lastID= $gerer->dernierID();
+        $gererGrp = new GroupeGerer($db);
+        $lastID= $gerer->dernierID();
             
-            $gererGrp->AjoutGroupeRepondant($_POST['choixGrp'], $lastID);
-            $gererGrp->Compteur();
+        $gererGrp->AjoutGroupeRepondant($_POST['choixGrp'], $lastID);
+        //$gererGrp->Compteur();
             
        }
             ?>

@@ -30,7 +30,7 @@ class GroupeGerer {
        } else {
            
           
-          $rdoublon = $this->_db->prepare('Select libelle_groupe
+          $rdoublon = $this->_db->prepare('SELECT libelle_groupe
                                            FROM Groupe
                                            WHERE libelle_groupe=:libelle_groupe');
           $rdoublon->bindvalue(':libelle_groupe',$groupe->getLibelleGroupe(),PDO::PARAM_STR);

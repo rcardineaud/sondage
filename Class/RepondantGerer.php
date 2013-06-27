@@ -24,19 +24,43 @@ class RepondantGerer {
     
     //ajoute un répondant
     public function addRep(Repondant $repondant){
-        $radd = $this->_db->prepare('INSERT INTO Repondant 
+        
+        //controle les doublons
+          $rdoublon= $this->_db->prepare('SELECT Mail_repondant
+                                          FROM Repondant
+                                          WHERE Mail_repondant = :Mail_repondant');
+          $rdoublon->bindvalue(':Mail_repondant', $repondant->getMail(),PDO::PARAM_STR);
+          
+          $rdoublon->execute();
+          
+          // on vérifie si une ligne est retourné
+          $num_rows = $rdoublon->fetchColumn();
+          
+          
+          // si oui, alors on n'insere pas
+          if($num_rows==TRUE) {
+              
+              echo 'Un répondant possèdant la même adresse mail existe déjà';
+          
+          } 
+          // si non, on insère
+            else {
+        
+        
+        
+            $radd = $this->_db->prepare('INSERT INTO Repondant 
                                      SET  
                                      Nom_repondant = :Nom_repondant, 
                                      Prenom_repondant = :Prenom_repondant, 
                                      Mail_repondant = :Mail_repondant');
        
-        $radd->bindvalue(':Nom_repondant', $repondant->getNom(),PDO::PARAM_STR);
-        $radd->bindvalue(':Prenom_repondant', $repondant->getPrenom(),PDO::PARAM_STR);
-        $radd->bindvalue(':Mail_repondant', $repondant->getMail(),PDO::PARAM_STR);
+            $radd->bindvalue(':Nom_repondant', $repondant->getNom(),PDO::PARAM_STR);
+            $radd->bindvalue(':Prenom_repondant', $repondant->getPrenom(),PDO::PARAM_STR);
+            $radd->bindvalue(':Mail_repondant', $repondant->getMail(),PDO::PARAM_STR);
        
-        $radd->execute();
+            $radd->execute();
         
-           echo "Le répondant suivant a été créé :";
+            echo "Le répondant suivant a été créé :";
         
            ?>
            <p>
@@ -47,6 +71,7 @@ class RepondantGerer {
            </p>     
            <?php
         }
+    }
     
     //supprime un répondant
     public function deleteRep(Repondant $repondant){ 
