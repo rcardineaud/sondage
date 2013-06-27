@@ -7,9 +7,7 @@
     <body>
         
         <h2>Liste des Groupes</h2>
-        <form action="GroupeSupprime.php" method="post"><br/>
-        
-        
+        <form action="GroupeSupprime.php" method="post">
         <?php
          require 'Class/Groupe.php';    //appelle des classes
          require 'Class/GroupeGerer.php';
@@ -22,7 +20,6 @@
 
         ?>
 
-         
          <br/>
          <input type="submit" value="supprimer"><br/>
          <a href="index.php">Retour accueil</a>

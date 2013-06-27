@@ -66,7 +66,7 @@ class GroupeGerer {
         }
     }
     
-        //permet de supprimer un groupe
+        //permet de supprimer un ou plusieurs groupe(s)
         public function deleteGrp($ID_groupe){ 
             
             foreach($ID_groupe as $element){
@@ -85,7 +85,7 @@ class GroupeGerer {
                 $rdelAppartient->execute();
                 $rdelGroupe->execute();
             }
-        
+           
     }
         
         public function GetAllGrp(){
