@@ -1,14 +1,12 @@
 <?php       
-include 'Class/Groupe.php';
-include 'Class/GroupeGerer.php';
-include 'BaseDeDonnees.php';
+require_once 'Class/Groupe.php';
+require_once 'Class/GroupeGerer.php';
+require_once 'BaseDeDonnees.php';
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
     </head>
     <body>
         <?php
@@ -16,10 +14,8 @@ include 'BaseDeDonnees.php';
 
         //controle que au moins un groupe a été séléctionné
         if(!empty($_POST['choixGrp'])){
-            
             $gererGrp->deleteGrp($_POST['choixGrp']);
-            echo 'Supression efectuée !';
-               
+            echo 'Supression efectuée !';   
         } else {
             echo 'Vous devez saisir au moins un groupe !';
         }

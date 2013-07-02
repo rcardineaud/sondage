@@ -1,7 +1,7 @@
 <?php  
-require 'Class/Groupe.php';
-require 'Class/GroupeGerer.php';
-require 'BaseDeDonnees.php';
+require_once 'Class/Groupe.php';
+require_once 'Class/GroupeGerer.php';
+require_once 'BaseDeDonnees.php';
 ?>
 
 <!DOCTYPE html>

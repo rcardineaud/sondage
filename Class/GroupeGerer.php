@@ -22,7 +22,7 @@ class GroupeGerer
     
         
     /**
-     * Permet d'ajouter un groupe dans la base de données avec contrôle au préalable
+     * Permet d'ajouter un groupe dans la base de données
      * 
      * @param Groupe $Groupe
      * 
@@ -75,18 +75,19 @@ class GroupeGerer
      * 
      * @return type Description
      */
-        public function deleteGrp($ID_groupe){ 
+        public function deleteGrp($ID_groupe)
+        { 
             
             foreach($ID_groupe as $element){
                 $num_ID=(int)$element;
             
                 //requete de supression du groupe dans la table appartient
-                $rdelAppartient = $this->_db->prepare('DELETE FROM appartient 
-                                             WHERE ID_groupe=:ID_groupe');
+                $rdelAppartient = $this->_db->prepare('DELETE FROM Appartient 
+                                                       WHERE ID_groupe=:ID_groupe');
                 
                 //requete de suppression du groupe dans la table Groupe
                 $rdelGroupe = $this->_db->prepare('DELETE FROM Groupe 
-                                             WHERE ID_groupe=:ID_groupe');
+                                                   WHERE ID_groupe=:ID_groupe');
         
                 $rdelAppartient->bindvalue(':ID_groupe', $num_ID, PDO::PARAM_STR);
                 $rdelGroupe->bindvalue(':ID_groupe', $num_ID, PDO::PARAM_STR);
@@ -94,7 +95,7 @@ class GroupeGerer
                 $rdelGroupe->execute();
             }
            
-    }
+        }
     
       /**
      * Permet de retourner tous les groupes présents dans la base de données
@@ -103,21 +104,22 @@ class GroupeGerer
      * 
      * @return type Description
      */
-       public function GetAllGrp(){
-        $resultat=$this->_db->query('Select ID_groupe, libelle_groupe 
-                                    FROM Groupe
-                                    WHERE libelle_groupe !="defaut"');
-        // On enregistre le resultat dans une variable
-        $donnees = $resultat->fetchAll();
+       public function GetAllGrp()
+       {
+           $resultat=$this->_db->query('SELECT ID_groupe, libelle_groupe 
+                                        FROM Groupe
+                                        WHERE libelle_groupe !="defaut"');
+           //On enregistre le resultat dans une variable
+           $donnees = $resultat->fetchAll();
         
             //On parcourt tous les enregistrements
             foreach($donnees as $row){
-            //On affiche le libellé des groupes
-            echo $row['libelle_groupe'];?><br/>
+                //On affiche le libellé des groupes
+                echo $row['libelle_groupe'];?><br/>
             <?php
 
             }
-        }
+       }
     
         
      /**
@@ -125,20 +127,22 @@ class GroupeGerer
      * 
      * @param String $ID_repondant
      * 
-     * @return type Description
+     * @return $donnees tableau
      */
-        public function ShowGrp($ID_repondant){ 
+        public function ShowGrp($ID_repondant)
+        { 
             
-        //on transforme l'ID_repondant en un entier
-        $ID_repondant = (int) $ID_repondant;
-        $rget = $this->_db->query('SELECT libelle_groupe
-                                   FROM Groupe
-                                   INNER JOIN Repondant ON repondant.ID_repondant = groupe.ID_repondant
-                                   WHERE ID_repondant ='.$ID_repondant);
+            //on transforme l'ID_repondant en un entier
+            $ID_repondant = (int) $ID_repondant;
+            $rget = $this->_db->query('SELECT libelle_groupe
+                                       FROM Groupe
+                                       INNER JOIN Repondant ON 
+                                       (repondant.ID_repondant = groupe.ID_repondant)
+                                       WHERE ID_repondant ='.$ID_repondant);
         
-        $donnees = $rget->fetch(PDO::FETCH_ASSOC);
+            $donnees = $rget->fetch(PDO::FETCH_ASSOC);
  
-        return $donnees; 
+            return $donnees; 
                 
         }
     
@@ -151,23 +155,24 @@ class GroupeGerer
      * 
      * @return type Description
      */
-        public function CheckBoxGrp(){
+        public function CheckBoxGrp()
+        {
             
-        //on enregistre dans la variable tous les groupes, sauf celui par défaut    
-        $resultat=$this->_db->query('Select ID_groupe,libelle_groupe 
-                                     FROM Groupe
-                                     WHERE libelle_groupe != "defaut"');
-        // On affiche le resultat
-        $donnees = $resultat->fetchAll();
+            //on enregistre dans la variable tous les groupes, sauf celui par défaut    
+            $resultat=$this->_db->query('Select ID_groupe,libelle_groupe 
+                                         FROM Groupe
+                                         WHERE libelle_groupe != "defaut"');
+            // On affiche le resultat
+            $donnees = $resultat->fetchAll();
         
 
-        //On parcourt tous les enregistrements
+            //On parcourt tous les enregistrements
             foreach($donnees as $row){
-        //On affiche les libelles des groupes dans un checkbox
+            //On affiche les libelles des groupes dans un checkbox
              ?> 
-             <input type="checkbox" name="choixGrp[]" onclick="compteur();" 
+                <input type="checkbox" name="choixGrp[]" onclick="compteur();" 
                     value ="<?php echo $row['ID_groupe'] ?>"> 
-             <?php echo $row['libelle_groupe'];
+          <?php echo $row['libelle_groupe'];
 
             }
         }
@@ -180,7 +185,8 @@ class GroupeGerer
      * 
      * @return type Description
      */
-        public function Compteur(){
+        public function Compteur()
+        {
             $nb = count($_POST['choixGrp']);
             echo "Vous avez séléctionné ".$nb, " groupes. ";
         }
@@ -193,7 +199,8 @@ class GroupeGerer
      * 
      * @return type Description
      */
-        public function renameGrp($new_libelle_groupe, $id_groupe){
+        public function renameGrp($new_libelle_groupe, $id_groupe)
+        {
 
             $rrename= $this->_db->prepare('UPDATE Groupe 
                                            SET libelle_groupe=:libelle_groupe
@@ -201,7 +208,6 @@ class GroupeGerer
             
             $rrename->bindvalue(':libelle_groupe', $new_libelle_groupe, PDO::PARAM_STR);
             $rrename->bindvalue(':ID_groupe', $id_groupe, PDO::PARAM_INT);
-            
             $rrename->execute();
                     
         }
@@ -211,9 +217,10 @@ class GroupeGerer
      * 
      * @param Integer $ID_groupe
      * 
-     * @return String
+     * @return String $rnameID
      */
-        public function NameID($ID_groupe){
+        public function NameID($ID_groupe)
+        {
             $rnameID = $this->_db->query('SELECT libelle_groupe
                                           FROM Groupe
                                           WHERE ID_groupe=:ID_groupe');
@@ -228,26 +235,22 @@ class GroupeGerer
      * 
      * @return type Description
      */
-        public function AjoutGroupeRepondant($tab_ID_groupe, $ID_repondant){  
+        public function AjoutGroupeRepondant($tab_ID_groupe, $ID_repondant)
+        {  
                                    
-           foreach($tab_ID_groupe as $element){
+            foreach($tab_ID_groupe as $element){
                        
-               
             $num_ID=(int)$element;
-            $rajout = $this->_db->prepare("INSERT INTO appartient(ID_groupe,
+            $rajout = $this->_db->prepare("INSERT INTO Appartient(ID_groupe,
                                                                  ID_repondant) 
                                            VALUES (:ID_groupe, 
                                                     :ID_rep);");
            
             $rajout->bindValue(':ID_groupe', $num_ID, PDO::PARAM_INT);
             $rajout->bindValue(':ID_rep', $ID_repondant, PDO::PARAM_INT);
-
-            
             $rajout->execute();
            
-            }
-            
-            
+            } 
         }
             
     

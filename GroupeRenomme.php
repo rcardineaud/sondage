@@ -1,7 +1,7 @@
 <?php      
-include 'Class/Groupe.php';
-include 'Class/GroupeGerer.php';
-include 'BaseDeDonnees.php';
+require_once 'Class/Groupe.php';
+require_once 'Class/GroupeGerer.php';
+require_once 'BaseDeDonnees.php';
 ?>
         
 <!DOCTYPE html>
@@ -18,20 +18,17 @@ include 'BaseDeDonnees.php';
         
         //on verifie que l'utilisateur a coché au moins 1 groupe
         if(!empty($_POST['choixGrp'])){
-        
         //boucle foreach permettant la saisi des nouveaux libellés pour CHAQUE
             foreach ($_POST['choixGrp'] as $element) {
                 ?>
-                <input type="hidden" name="table_ID[]" value="<?php echo $element; ?>"  >      
-            
+                <input type="hidden" name="table_ID[]" value="<?php echo $element; ?>">      
                 Nouveau libellé : <input type="text" name="new_libelle_groupe[]"> 
                 <?php
             }
 
         } else {
             echo 'Vous devez choisir au minimum un groupe !';
-        }
-        ?>
+        } ?>
         <input type="submit" value="modifier"><br>
     </body>
 </html>

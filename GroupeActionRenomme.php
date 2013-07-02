@@ -1,6 +1,6 @@
 <?php     
-include 'Class/GroupeGerer.php';     
-include 'BaseDeDonnees.php';
+require_once 'Class/GroupeGerer.php';     
+require_once 'BaseDeDonnees.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,6 @@ include 'BaseDeDonnees.php';
         $i=0;
         
         while($tab_Lib_Grp[$i]==!NULL){
-    
             $gererGrp->renameGrp($tab_Lib_Grp[$i], (int)$tab_ID_Grp[$i]);  
             $i=$i+1;
         }

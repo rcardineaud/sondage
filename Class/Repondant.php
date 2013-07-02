@@ -12,59 +12,59 @@
  */
 
  
-
  class Repondant
-        {
-
-            public $_nom;
-            public $_prenom;
-            public $_mail;
+ {
+     public $_nom;
+     public $_prenom;
+     public $_mail;
             
-            public function __construct($nom,$prenom,$mail) {
-                $this->setnom($nom);
-                $this->setprenom($prenom);
-                $this->setMail($mail);
-                
-            }
+    
+     public function __construct($nom,$prenom,$mail)
+     {
+         $this->setnom($nom);
+         $this->setprenom($prenom);
+         $this->setMail($mail);      
+     }
             
- 
-            //setters
-            
-              public function setnom($nom){
-                $this->_nom = $nom;
-              }
+     
+         //setters
+     public function setNom($nom)
+     {
+         $this->_nom = $nom;
+     }
               
-              public function setprenom($prenom){
-                $this->_prenom = $prenom;
-              }
+     public function setPrenom($prenom)
+     {
+         $this->_prenom = $prenom;
+     }
               
-              public function setmail($mail){
-                $this->_mail = $mail;
-            }
+     public function setMail($mail)
+     {
+         $this->_mail = $mail;
+     }
             
            //Getters
+     public function getIDRepondant()
+     {
+         return $this->_ID_repondant;
+     }
             
-           public function getIDRepondant()
-            {
-                   return $this->_ID_repondant;
-            }
+     public function getNom()
+     {
+         return $this->_nom;
+     }
             
-             public function getNom()
-            {
-                   return $this->_nom;
-            }
+     public function getPrenom()
+     {
+         return $this->_prenom;
+     }
             
-             public function getPrenom()
-            {
-                   return $this->_prenom;
-            }
-            
-             public function getMail()
-            {
-                   return $this->_mail;
-            }
+     public function getMail()
+     {
+         return $this->_mail;
+     }
 
-        }
+ }
 
 
 
