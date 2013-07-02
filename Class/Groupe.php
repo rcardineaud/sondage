@@ -10,22 +10,26 @@
  *
  * @author rcardineaud
  */
-class Groupe {
+class Groupe 
+{
   
     public $_libelleGroupe;
     
-    public function __construct($libelle){
+    public function __construct($libelle)
+    {
         $this->setLibelleGroupe($libelle);
     }
     
     //setter
     
-    public function setLibelleGroupe($libelle){
+    public function setLibelleGroupe($libelle)
+    {
         $this->_libelleGroupe = $libelle;
     }
     
     //getter
-    public function getLibelleGroupe(){
+    public function getLibelleGroupe()
+    {
         return $this->_libelleGroupe;
     }
     

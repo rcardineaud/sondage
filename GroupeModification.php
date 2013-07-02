@@ -1,3 +1,9 @@
+<?php         
+require 'Class/Groupe.php';
+require 'Class/GroupeGerer.php';
+require 'BaseDeDonnees.php';
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,19 +15,13 @@
         <h2>Liste des Groupes</h2>
         <form action="GroupeSupprime.php" method="post">
         <?php
-         require 'Class/Groupe.php';    //appelle des classes
-         require 'Class/GroupeGerer.php';
-         require 'BaseDeDonnees.php';
-         
-        $db = new PDO($dns,$identifiant,$mdp);
-        $gererGrp = new GroupeGerer($db);
-               
+        $gererGrp = new GroupeGerer($db);       
         $gererGrp->CheckBoxGrp();
-
         ?>
 
-         <br/>
-         <input type="submit" value="supprimer"><br/>
+         <br>
+         <input type="submit" value="Supprimer"><br>
+ 
          <a href="index.php">Retour accueil</a>
          <a href="GroupeModification.php">Rafraichir page</a>
         

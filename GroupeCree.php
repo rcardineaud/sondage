@@ -1,3 +1,9 @@
+<?php  
+require 'Class/Groupe.php';
+require 'Class/GroupeGerer.php';
+require 'BaseDeDonnees.php';
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,18 +12,11 @@
     </head>
     <body>
         <?php
-        require 'Class/Groupe.php';    //appelle des classes
-        require 'Class/GroupeGerer.php';
-        require 'BaseDeDonnees.php';
-        
-        $db = new PDO($dns, $identifiant, $mdp);
         $gererGrp = new GroupeGerer($db);
         $groupe= new Groupe($_POST['libelle_groupe']);
         
-          
         //Lance la méthode add
          $gererGrp->addGrp($groupe);
-
         ?>
         <br/>
         <a href='index.php'>Retour accueil</a>

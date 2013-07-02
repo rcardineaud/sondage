@@ -1,7 +1,7 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
+<?php          
+require 'Class/GroupeGerer.php'; 
+require 'BaseDeDonnees.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,17 +12,15 @@ and open the template in the editor.
          <h1>Creation d'un nouveau Sondage</h1>
          <form action="RepondantCree.php" method="post">
 
-         <p> Titre : <input type="text" name="nom" /><br/>
-          ... :<input type="text" name="prenom" /><br/>
-          ... : <input type="text" name="mail" /><br/>
+         <p> Titre : <input type="text" name="nom" /><br>
+          ... :<input type="text" name="prenom" /><br>
+          ... : <input type="text" name="mail" /><br>
           ... : 
           <?php 
-          require 'Class/GroupeGerer.php'; 
-          require 'BaseDeDonnees.php';
-          $db = new PDO($dns, $identifiant, $mdp);
+
           $gererGrp = new GroupeGerer($db);
           $gererGrp->ListeDeroulanteGrp();
 
-          ?><br/>
+          ?><br>
     </body>
 </html>
